@@ -1,10 +1,26 @@
+/**
+ * Program reading lines from STDIN and determining next cron job run time.
+ *
+ * [runInternalTests] can be used to run internal tests used during dev
+ *
+ * Author: Evaldas Snukiskis
+ */
 fun main() {
-    // Get a sequence of config input lines from STDIN
+    // Get a sequence of config input lines from STDIN. Read 1 line for simulated time, rest for configs
+    val timeSplits = readLine()?.split(":")
+    val simulatedTime =
+        SimpleTime(hours = Integer.parseInt(timeSplits?.get(0)), minutes = Integer.parseInt(timeSplits?.get(1)))
     val rawInputLines = generateSequence(::readLine).toList()
 
-    println(rawInputLines.toList())
+    // Disabled: used for TDD while writing up the solution
+    // runInternalTests()
 
-    runInternalTests()
+    val lines: List<String> = rawInputLines.toList()
+
+    lines.forEach { line ->
+        val solution = solveFor(givenTime = simulatedTime, config = SimpleConfig.from(line))
+        println(solution)
+    }
 }
 
 fun solveFor(givenTime: SimpleTime, config: SimpleConfig): String {
