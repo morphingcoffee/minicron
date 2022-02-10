@@ -30,7 +30,7 @@ fun main(args: Array<String>) {
         val inputConfigLines = generateSequence(::readLine)
         inputConfigLines.forEach { line ->
             val config = SimpleConfig.from(line)
-            val solution = MiniCronSolver().solveFor(givenTime = simulatedTime, config = config)
+            val solution = MiniCronSolver().nextRunTime(givenTime = simulatedTime, config = config)
             println(solution)
         }
     }

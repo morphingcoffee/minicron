@@ -12,7 +12,7 @@ class MiniCronSolver {
      * @return string in "HH:MM DAY - path/to/executable" format,
      * where "HH:MM" is the next cron time and "DAY" is 'today' or 'tomorrow'
      */
-    fun solveFor(givenTime: SimpleTime, config: SimpleConfig): String {
+    fun nextRunTime(givenTime: SimpleTime, config: SimpleConfig): String {
         val cronTime: SimpleTime
         val todayOrTomorrow: String
 
