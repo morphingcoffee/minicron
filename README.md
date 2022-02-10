@@ -1,23 +1,34 @@
 # minicron
 
-mini cron solution in Kotlin
+mini cron solution in Kotlin (1.6.10)
 
 #### Running the solution
 
-Tested against Kotlin 1.6.10
+The solution accepts a single string argument and reads STDIN for config file contents.
 
-Experienced issues with concatenating given time STDIN argument with `cat`ted STDIN, workaround below didn't help as
-well:
+Sample config file is available [here](sample_configs/input.txt).
+
+Run MiniCron solution against a custom config file & arbitrary time:
 
 ```bash
-TEST_FILE="sample_configs/provided.txt"
-GIVEN_TIME="16:10"
-(echo $GIVEN_TIME ; cat $TEST_FILE) > test.txt
-cat test.txt | (kotlinc src/solution.kt -include-runtime -d solution.jar) && java -jar solution.jar
+# Compile the source files into a JAR
+kotlinc src/* -include-runtime -d minicron.jar
+
+# Execute solution against arbitrary time argument & configuration file
+cat sample_configs/input.txt | java -jar minicron.jar 16:10
+
+# Or execute by defining values in variables
+CONFIG_FILE="sample_configs/input.txt"
+SIMULATED_TIME="16:10"
+cat "$CONFIG_FILE" | java -jar minicron.jar "$SIMULATED_TIME"
 ```
 
-If time value is removed from parsing & hard-coded in source code, the following can be used to execute the solution:
+Run internal test cases with a custom argument `test`:
 
 ```bash
-cat configfile.txt | (kotlinc src/solution.kt -include-runtime -d solution.jar) && java -jar solution.jar  
+# Compile the source files into a JAR
+kotlinc src/* -include-runtime -d minicron.jar
+
+# Run internal tests
+java -jar minicron.jar test
 ```
